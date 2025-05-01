@@ -40,10 +40,10 @@
             <pre><code>model: org/model-name
 base:
   - key: user/model-file
-  sources:
-    - type: huggingface
-    user: huggingface-user
-    repo: model-repo</code></pre>
+    sources:
+      - type: huggingface
+        user: huggingface-user
+        repo: model-repo</code></pre>
           </div>
         </div>
       </div>
@@ -76,10 +76,10 @@ base:
             </ul>
             <pre><code>base:
   - key: lmstudio-community/qwen3-8b-gguf
-  sources:
-    - type: huggingface
-    user: lmstudio-community
-    repo: Qwen-3-8B-GGUF</code></pre>
+    sources:
+      - type: huggingface
+        user: lmstudio-community
+        repo: Qwen-3-8B-GGUF</code></pre>
           </div>
         </div>
         
@@ -92,15 +92,15 @@ base:
             <pre><code>metadataOverrides:
   domain: llm
   architectures:
-  - llama
+    - llama
   compatibilityTypes:
-  - gguf
-  - safetensors
+    - gguf
+    - safetensors
   paramsStrings:
-  - 1B
+    - 1B
   minMemoryUsageBytes: 1000000000
   contextLengths:
-  - 131072
+    - 131072
   trainedForToolUse: mixed
   vision: false</code></pre>
             <div class="subfields">
@@ -144,13 +144,13 @@ base:
             <p>Built-in configurations for the model, applying preset configurations for loading or runtime operation.</p>
             <pre><code>config:
   operation:
-  fields:
-    - key: llm.prediction.topKSampling
-    value: 20
-    - key: llm.prediction.minPSampling
-    value:
-      checked: true
-      value: 0</code></pre>
+    fields:
+      - key: llm.prediction.topKSampling
+        value: 20
+      - key: llm.prediction.minPSampling
+        value:
+          checked: true
+          value: 0</code></pre>
           </div>
         </div>
         
@@ -162,13 +162,13 @@ base:
             <p>User-configurable options that affect the model's behavior. Each field can trigger effects like changing variables or modifying the system prompt.</p>
             <pre><code>customFields:
   - key: enableThinking
-  displayName: Enable Thinking
-  description: Enable the model to think before answering.
-  type: boolean
-  defaultValue: true
-  effects:
-    - type: setJinjaVariable
-      variable: enable_thinking</code></pre>
+    displayName: Enable Thinking
+    description: Enable the model to think before answering.
+    type: boolean
+    defaultValue: true
+    effects:
+      - type: setJinjaVariable
+        variable: enable_thinking</code></pre>
             <div class="subfields">
               <div class="subfield">
                 <h5><code>key</code></h5>
@@ -235,51 +235,51 @@ base:
           <pre><code>model: qwen/qwen3-8b
 base:
   - key: lmstudio-community/qwen3-8b-gguf
-  sources:
-    - type: huggingface
-    user: lmstudio-community
-    repo: Qwen-3-8B-GGUF
-metadataOverrides:
-  domain: llm
-  architectures:
-  - llama
-  compatibilityTypes:
-  - gguf
-  - safetensors
-  paramsStrings:
-  - 1B
-  minMemoryUsageBytes: 1000000000
-  contextLengths:
-  - 131072
-  trainedForToolUse: mixed
-  vision: false
+    sources:
+      - type: huggingface
+        user: lmstudio-community
+        repo: Qwen-3-8B-GGUF
+    metadataOverrides:
+      domain: llm
+      architectures:
+        - llama
+      compatibilityTypes:
+        - gguf
+        - safetensors
+      paramsStrings:
+        - 1B
+      minMemoryUsageBytes: 1000000000
+      contextLengths:
+        - 131072
+      trainedForToolUse: mixed
+      vision: false
 config:
   operation:
-  fields:
-    - key: llm.prediction.topKSampling
-    value: 20
-    - key: llm.prediction.minPSampling
-    value:
-      checked: true
-      value: 0
+    fields:
+      - key: llm.prediction.topKSampling
+        value: 20
+      - key: llm.prediction.minPSampling
+        value:
+          checked: true
+          value: 0
 customFields:
   - key: enableThinking
-  displayName: Enable Thinking
-  description: Enable the model to think before answering.
-  type: boolean
-  defaultValue: true
-  effects:
-    - type: setJinjaVariable
-      variable: enable_thinking
+    displayName: Enable Thinking
+    description: Enable the model to think before answering.
+    type: boolean
+    defaultValue: true
+    effects:
+      - type: setJinjaVariable
+        variable: enable_thinking
 suggestions:
   - message: The following parameters are recommended for thinking mode
-  conditions:
-    - type: equals
-    key: $.enableThinking
-    value: true
-  fields:
-    - key: llm.prediction.temperature
-    value: 0.6</code></pre>
+    conditions:
+      - type: equals
+      key: $.enableThinking
+      value: true
+    fields:
+      - key: llm.prediction.temperature
+      value: 0.6</code></pre>
         </div>
       </div>
     </section>

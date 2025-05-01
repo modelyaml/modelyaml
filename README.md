@@ -1,8 +1,6 @@
-# model.yaml - Open Standard for AI Models
+# model.yaml
 
 ## An open standard for defining crossplatform, composable AI models
-
----
 
 ### What is model.yaml?
 
