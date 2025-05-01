@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>model.yaml - Open Standard for AI Models</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="logo">model<span class="accent">.yaml</span></div>
+      <h1>An open standard for defining crossplatform, composable AI models</h1>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <div class="container">
+        <div class="intro-content">
+          <h2>What is model.yaml?</h2>
+          <p>
+            AI models are often available in multiple formats and variants, while different machines support diverse engines such as <code>llama.cpp</code> and <code>MLX</code>. This diversity can make it challenging to manage and deploy models effectively. 
+          </p>
+          <p>
+            <code>model.yaml</code> addresses this challenge by providing a unified configuration format that defines all possible sources and formats of a model. It delegates the responsibility to the runtime to determine the most suitable variant to download and the appropriate engine to use, ensuring seamless compatibility and efficient deployment.
+          </p>
+          <div class="badges">
+            <div class="badge">Open Standard</div>
+            <div class="badge">Cross-platform</div>
+            <div class="badge">Composable</div>
+            <div class="badge">First Draft</div>
+          </div>
+        </div>
+        <div class="intro-visual">
+          <div class="code-preview">
+            <pre><code>model: org/model-name
+base:
+  - key: user/model-file
+  sources:
+    - type: huggingface
+    user: huggingface-user
+    repo: model-repo</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="spec">
+      <div class="container">
+        <h2>Specification <span class="version-tag">Draft 1.0</span></h2>
+        <p class="spec-intro">
+          The <code>model.yaml</code> standard defines a structured way to specify AI models, their sources, configurations, and metadata. Feel free to contribute to this open standard as it evolves.
+          <br>
+          You can find a TypeScript definition of the specification in <a href="https://github.com/lmstudio-ai/lmstudio-js/blob/main/packages/lms-shared-types/src/VirtualModelDefinition.ts">lmstudio.js</a>.
+        </p>
+        
+        <div class="spec-section">
+          <h3>Core Fields</h3>
+          
+          <div class="spec-field">
+            <h4><code>model</code> <span class="required">Required</span></h4>
+            <p>The identifier for the model in the format <code>organization/name</code>. This determines where the model will be published and how it's referenced.</p>
+            <pre><code>model: meta/qwen3-8b</code></pre>
+          </div>
+          
+          <div class="spec-field">
+            <h4><code>base</code> <span class="required">Required</span></h4>
+            <p>Defines the underlying model(s) that this virtual model points to. Can be either:</p>
+            <ul>
+              <li>A string referencing another virtual model, forming a chain</li>
+              <li>An array of concrete model specifications with download sources</li>
+            </ul>
+            <pre><code>base:
+  - key: lmstudio-community/qwen3-8b-gguf
+  sources:
+    - type: huggingface
+    user: lmstudio-community
+    repo: Qwen-3-8B-GGUF</code></pre>
+          </div>
+        </div>
+        
+        <div class="spec-section">
+          <h3>Configuration & Metadata</h3>
+          
+          <div class="spec-field">
+            <h4><code>metadataOverrides</code> <span class="optional">Optional</span></h4>
+            <p>Overrides metadata for the model, which can differ from the base model. This helps platforms understand the model's capabilities.</p>
+            <pre><code>metadataOverrides:
+  domain: llm
+  architectures:
+  - llama
+  compatibilityTypes:
+  - gguf
+  - safetensors
+  paramsStrings:
+  - 1B
+  minMemoryUsageBytes: 1000000000
+  contextLengths:
+  - 131072
+  trainedForToolUse: mixed
+  vision: false</code></pre>
+            <div class="subfields">
+              <div class="subfield">
+                <h5><code>domain</code></h5>
+                <p>The domain type of the model (e.g., <code>llm</code>, <code>embedding</code>).</p>
+              </div>
+              <div class="subfield">
+                <h5><code>architectures</code></h5>
+                <p>Array of model architecture names (e.g., <code>llama</code>, <code>qwen2</code>).</p>
+              </div>
+              <div class="subfield">
+                <h5><code>compatibilityTypes</code></h5>
+                <p>Array of format types the model supports (e.g., <code>gguf</code>, <code>safetensors</code>).</p>
+              </div>
+              <div class="subfield">
+                <h5><code>paramsStrings</code></h5>
+                <p>Human-readable parameter size labels (e.g., <code>1B</code>, <code>7B</code>).</p>
+              </div>
+              <div class="subfield">
+                <h5><code>minMemoryUsageBytes</code></h5>
+                <p>Minimum RAM required to load the model in bytes.</p>
+              </div>
+              <div class="subfield">
+                <h5><code>contextLengths</code></h5>
+                <p>Array of supported context window sizes.</p>
+              </div>
+              <div class="subfield">
+                <h5><code>trainedForToolUse</code></h5>
+                <p>Whether the model supports tool use (<code>true</code>, <code>false</code>, or <code>mixed</code>).</p>
+              </div>
+              <div class="subfield">
+                <h5><code>vision</code></h5>
+                <p>Whether the model supports processing images (<code>true</code>, <code>false</code>, or <code>mixed</code>).</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="spec-field">
+            <h4><code>config</code> <span class="optional">Optional</span></h4>
+            <p>Built-in configurations for the model, applying preset configurations for loading or runtime operation.</p>
+            <pre><code>config:
+  operation:
+  fields:
+    - key: llm.prediction.topKSampling
+    value: 20
+    - key: llm.prediction.minPSampling
+    value:
+      checked: true
+      value: 0</code></pre>
+          </div>
+        </div>
+        
+        <div class="spec-section">
+          <h3>Customization</h3>
+          
+          <div class="spec-field">
+            <h4><code>customFields</code> <span class="optional">Optional</span></h4>
+            <p>User-configurable options that affect the model's behavior. Each field can trigger effects like changing variables or modifying the system prompt.</p>
+            <pre><code>customFields:
+  - key: enableThinking
+  displayName: Enable Thinking
+  description: Enable the model to think before answering.
+  type: boolean
+  defaultValue: true
+  effects:
+    - type: setJinjaVariable
+      variable: enable_thinking</code></pre>
+            <div class="subfields">
+              <div class="subfield">
+                <h5><code>key</code></h5>
+                <p>Unique identifier for the field.</p>
+              </div>
+              <div class="subfield">
+                <h5><code>displayName</code></h5>
+                <p>Human-readable name shown in UI.</p>
+              </div>
+              <div class="subfield">
+                <h5><code>description</code></h5>
+                <p>Explains the field's purpose.</p>
+              </div>
+              <div class="subfield">
+                <h5><code>type</code></h5>
+                <p>Data type (<code>boolean</code> or <code>string</code>).</p>
+              </div>
+              <div class="subfield">
+                <h5><code>defaultValue</code></h5>
+                <p>Initial value.</p>
+              </div>
+              <div class="subfield">
+                <h5><code>effects</code></h5>
+                <p>What effects to apply.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="spec-field">
+            <h4><code>suggestions</code> <span class="optional">Optional</span></h4>
+            <p>Dynamic configuration recommendations based on conditions. These appear in the UI when conditions are met.</p>
+            <pre><code>suggestions:
+  - message: The following parameters are recommended for thinking mode
+    conditions:
+      - type: equals
+        key: $.enableThinking
+        value: true
+    fields:
+      - key: llm.prediction.temperature
+        value: 0.6</code></pre>
+            <div class="subfields">
+              <div class="subfield">
+                <h5><code>message</code></h5>
+                <p>Text shown to the user.</p>
+              </div>
+              <div class="subfield">
+                <h5><code>conditions</code></h5>
+                <p>When the suggestion should appear.</p>
+              </div>
+              <div class="subfield">
+                <h5><code>fields</code></h5>
+                <p>Configuration values to apply.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="examples">
+      <div class="container">
+        <h2>Complete Example</h2>
+        <div class="example-code">
+          <pre><code>model: qwen/qwen3-8b
+base:
+  - key: lmstudio-community/qwen3-8b-gguf
+  sources:
+    - type: huggingface
+    user: lmstudio-community
+    repo: Qwen-3-8B-GGUF
+metadataOverrides:
+  domain: llm
+  architectures:
+  - llama
+  compatibilityTypes:
+  - gguf
+  - safetensors
+  paramsStrings:
+  - 1B
+  minMemoryUsageBytes: 1000000000
+  contextLengths:
+  - 131072
+  trainedForToolUse: mixed
+  vision: false
+config:
+  operation:
+  fields:
+    - key: llm.prediction.topKSampling
+    value: 20
+    - key: llm.prediction.minPSampling
+    value:
+      checked: true
+      value: 0
+customFields:
+  - key: enableThinking
+  displayName: Enable Thinking
+  description: Enable the model to think before answering.
+  type: boolean
+  defaultValue: true
+  effects:
+    - type: setJinjaVariable
+      variable: enable_thinking
+suggestions:
+  - message: The following parameters are recommended for thinking mode
+  conditions:
+    - type: equals
+    key: $.enableThinking
+    value: true
+  fields:
+    - key: llm.prediction.temperature
+    value: 0.6</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="benefits">
+      <div class="container">
+        <h2>Why Use model.yaml?</h2>
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <div class="benefit-icon">🔄</div>
+            <h3>Composability</h3>
+            <p>Build model chains by referencing other models, creating a stack of configurations.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">🌐</div>
+            <h3>Cross-Platform</h3>
+            <p>Define once, run anywhere that supports the standard, regardless of hardware or software.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">⚙️</div>
+            <h3>Preconfigured</h3>
+            <p>Models come with optimal default settings built in, improving out-of-the-box performance.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">🧩</div>
+            <h3>Adaptable</h3>
+            <p>Custom fields enable dynamic behavior changes without modifying the core model.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>model.yaml is an open standard ・ First Draft ・ <a href="https://github.com/modelyaml/modelyaml">Contribute on GitHub</a></p>
+    </div>
+  </footer>
+</body>
+</html>
