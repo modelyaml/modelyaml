@@ -87,7 +87,14 @@ header h1 {
   align-items: center;
   gap: 8px;
   color: var(--color-text-light);
-  font-size: 0.95rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.subtitle {
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  color: var(--color-text-light);
 }
 
 .byline {

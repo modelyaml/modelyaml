@@ -25,12 +25,11 @@
       <nav class="nav">
         <a href="#spec">Spec</a>
         <a href="#example">Example</a>
-        <a href="#why">Why</a>
         <a href="https://github.com/modelyaml/modelyaml" target="_blank" rel="noopener">GitHub</a>
       </nav>
     </div>
     <div class="container">
-      <p class="">An open description standard for defining cross-platform, multi-format AI models</p>
+      <p class="subtitle">An open description standard for defining cross-platform, multi-format AI models.</p>
       <div class="header-subtitle">
         <span>by</span>
         <a class="byline" href="https://lmstudio.ai" target="_blank" rel="noopener">
@@ -60,11 +59,20 @@
           <div class="code-preview">
             <pre><code>model: org/model-name
 base:
-  - key: user/model-file
+  - key: hf-repo/model-name-instruct-gguf
     sources:
       - type: huggingface
-        user: huggingface-user
-        repo: model-repo</code></pre>
+        user: hf-user
+        repo: Model-Name-Instruct-GGUF
+  - key: hf-repo/model-name-instruct-MLX
+    sources:
+      - type: huggingface
+        user: another-hf-user
+        repo: Model-Name-Instruct-MLX
+metadataOverrides:
+  compatibilityTypes:
+    - gguf
+    - safetensors</code></pre>
           </div>
         </div>
       </div>
@@ -218,33 +226,7 @@ base:
             </div>
           </div>
 
-          <div class="spec-field">
-            <h4><code>suggestions</code> <span class="optional">Optional</span></h4>
-            <p>Dynamic configuration recommendations based on conditions. These appear in the UI when conditions are met.</p>
-            <pre><code>suggestions:
-  - message: The following parameters are recommended for thinking mode
-    conditions:
-      - type: equals
-        key: $.enableThinking
-        value: true
-    fields:
-      - key: llm.prediction.temperature
-        value: 0.6</code></pre>
-            <div class="subfields">
-              <div class="subfield">
-                <h5><code>message</code></h5>
-                <p>Text shown to the user.</p>
-              </div>
-              <div class="subfield">
-                <h5><code>conditions</code></h5>
-                <p>When the suggestion should appear.</p>
-              </div>
-              <div class="subfield">
-                <h5><code>fields</code></h5>
-                <p>Configuration values to apply.</p>
-              </div>
-            </div>
-          </div>
+          
         </div>
       </div>
     </section>
@@ -291,40 +273,7 @@ customFields:
     defaultValue: true
     effects:
       - type: setJinjaVariable
-        variable: enable_thinking
-suggestions:
-  - message: The following parameters are recommended for thinking mode
-    conditions:
-      - type: equals
-        key: $.enableThinking
-        value: true
-    fields:
-      - key: llm.prediction.temperature
-        value: 0.6</code></pre>
-        </div>
-      </div>
-    </section>
-
-    <section class="benefits" id="why">
-      <div class="container">
-        <h2>Why Use model.yaml?</h2>
-        <div class="benefits-grid">
-          <div class="benefit-card">
-            <h3>Composability</h3>
-            <p>Build model chains by referencing other models, creating a stack of configurations.</p>
-          </div>
-          <div class="benefit-card">
-            <h3>Cross-Platform</h3>
-            <p>Define once, run anywhere that supports the standard, regardless of hardware or software.</p>
-          </div>
-          <div class="benefit-card">
-            <h3>Preconfigured</h3>
-            <p>Models come with optimal default settings built in, improving out-of-the-box performance.</p>
-          </div>
-          <div class="benefit-card">
-            <h3>Adaptable</h3>
-            <p>Custom fields enable dynamic behavior changes without modifying the core model.</p>
-          </div>
+        variable: enable_thinking</code></pre>
         </div>
       </div>
     </section>
