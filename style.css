@@ -47,7 +47,6 @@ header {
   background: #fff;
   color: var(--color-text);
   padding: 28px 0 20px;
-  border-bottom: 1px solid var(--color-border);
 }
 
 header::before { display: none; }
@@ -57,6 +56,21 @@ header::before { display: none; }
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+}
+
+/* Hero banner */
+.hero-banner {
+  text-align: center;
+  padding: 30px 0 0px 0;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.hero-banner img {
+  display: block;
+  margin: 0 auto;
+  max-width: 450px;
+  height: auto;
 }
 
 .logo {
@@ -427,6 +441,10 @@ a:hover { text-decoration: underline; }
   .benefits h2 {
     font-size: 1.6rem;
   }
+
+  /* Reduce top spacing when code block comes first on tablets/phones */
+  .intro { padding: 24px 0 44px; }
+  .intro-visual { margin-top: 0; }
 }
 
 @media (max-width: 600px) {
@@ -458,5 +476,12 @@ a:hover { text-decoration: underline; }
 /* Simple nav layout fix for wrapping */
 @media (max-width: 720px) {
   .header-bar { flex-direction: column; align-items: flex-start; }
-  .nav { display: flex; flex-wrap: wrap; gap: 6px; }
+  .nav { display: flex; flex-wrap: wrap; gap: 16px; margin-left: 0; padding-left: 0; }
+  /* Remove inner left/right padding so text aligns with logo edge */
+  .nav a { padding-left: 0; padding-right: 0; }
+}
+
+@media (max-width: 600px) {
+  /* Tighten the space above the hero code even more on small phones */
+  .intro { padding: 16px 0 40px; }
 }

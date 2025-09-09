@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>model.yaml - Open Standard for AI Models</title>
+  <title>model.yaml • Open Description Standard for AI Models</title>
   <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="model.yaml — Open Standard for AI Models">
+  <meta property="og:title" content="model.yaml • Open Description Standard for AI Models">
   <meta property="og:description" content="An open description standard for defining cross-platform, multi format AI models.">
   <meta property="og:image" content="https://files.lmstudio.ai/modelyaml-card.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="model.yaml — Open Standard for AI Models">
+  <meta name="twitter:title" content="model.yaml — Open Description Standard for AI Models">
   <meta name="twitter:description" content="An open description standard for defining cross-platform, multi format AI models.">
   <meta name="twitter:image" content="https://files.lmstudio.ai/modelyaml-card.jpg">
   <link rel="stylesheet" href="style.css">
@@ -39,7 +39,9 @@
       </div>
     </div>
   </header>
-
+  <div class="container hero-banner">
+    <img src="banner.jpg" alt="model.yaml banner">
+  </div>
   <main>
     <section class="intro">
       <div class="container">
@@ -47,13 +49,15 @@
           <h2>What is <code>model.yaml</code>?</h2>
           <p>
             AI models are often available in multiple formats and variants, while different machines support diverse engines such as <code>llama.cpp</code> and <code>MLX</code>. This diversity can make it challenging for end users to reason about the choices available to them.
-            Models in LM Studio's <a href="https://lmstudio.ai/models" target="_blank" rel="noopener">model catalog</a> are all defined using <code>model.yaml</code>.
           </p>
           
           <p>
-            <code>model.yaml</code> addresses this challenge by providing a standard description format that defines a model, along with multiple possible sources (potentially in different formats) of a model. It delegates the responsibility of determining the most suitable variant to download and the appropriate engine to use to the client program (e.g. LM Studio), while allowing showing simplified information to the user.
+            <code>model.yaml</code> addresses this by providing a standard description format that defines a model, along with multiple possible sources (potentially in different formats) of a model. It delegates the responsibility of determining the most suitable variant to download and the appropriate engine to use to the client program (e.g. LM Studio), while allowing showing simplified information to the user.
           </p>
           
+          <p>
+            Models in LM Studio's <a href="https://lmstudio.ai/models" target="_blank" rel="noopener">model catalog</a> are all defined using <code>model.yaml</code>.
+          </p>
         </div>
         <div class="intro-visual">
           <div class="code-preview">
