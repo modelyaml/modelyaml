@@ -4,6 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>model.yaml - Open Standard for AI Models</title>
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="model.yaml — Open Standard for AI Models">
+  <meta property="og:description" content="An open description standard for defining cross-platform, multi format AI models.">
+  <meta property="og:image" content="https://files.lmstudio.ai/modelyaml-card.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="model.yaml — Open Standard for AI Models">
+  <meta name="twitter:description" content="An open description standard for defining cross-platform, multi format AI models.">
+  <meta name="twitter:image" content="https://files.lmstudio.ai/modelyaml-card.jpg">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,9 +20,24 @@
 </head>
 <body>
   <header>
+    <div class="container header-bar">
+      <div class="logo accent">model<span class="accent">.yaml</span></div>
+      <nav class="nav">
+        <a href="#spec">Spec</a>
+        <a href="#example">Example</a>
+        <a href="#why">Why</a>
+        <a href="https://github.com/modelyaml/modelyaml" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
     <div class="container">
-      <div class="logo">model<span class="accent">.yaml</span></div>
-      <h1>An open standard for defining crossplatform, composable AI models</h1>
+      <p class="">An open description standard for defining cross-platform, multi-format AI models</p>
+      <div class="header-subtitle">
+        <span>by</span>
+        <a class="byline" href="https://lmstudio.ai" target="_blank" rel="noopener">
+          <img src="https://files.lmstudio.ai/logo.png" alt="LM Studio logo">
+          <span class="">LM Studio</span>
+        </a>
+      </div>
     </div>
   </header>
 
@@ -21,19 +45,16 @@
     <section class="intro">
       <div class="container">
         <div class="intro-content">
-          <h2>What is model.yaml?</h2>
+          <h2>What is <code>model.yaml</code>?</h2>
           <p>
-            AI models are often available in multiple formats and variants, while different machines support diverse engines such as <code>llama.cpp</code> and <code>MLX</code>. This diversity can make it challenging to manage and deploy models effectively. 
+            AI models are often available in multiple formats and variants, while different machines support diverse engines such as <code>llama.cpp</code> and <code>MLX</code>. This diversity can make it challenging for end users to reason about the choices available to them.
+            Models in LM Studio's <a href="https://lmstudio.ai/models" target="_blank" rel="noopener">model catalog</a> are all defined using <code>model.yaml</code>.
           </p>
+          
           <p>
-            <code>model.yaml</code> addresses this challenge by providing a unified configuration format that defines all possible sources and formats of a model. It delegates the responsibility to the runtime to determine the most suitable variant to download and the appropriate engine to use, ensuring seamless compatibility and efficient deployment.
+            <code>model.yaml</code> addresses this challenge by providing a standard description format that defines a model, along with multiple possible sources (potentially in different formats) of a model. It delegates the responsibility of determining the most suitable variant to download and the appropriate engine to use to the client program (e.g. LM Studio), while allowing showing simplified information to the user.
           </p>
-          <div class="badges">
-            <div class="badge">Open Standard</div>
-            <div class="badge">Cross-platform</div>
-            <div class="badge">Composable</div>
-            <div class="badge">First Draft</div>
-          </div>
+          
         </div>
         <div class="intro-visual">
           <div class="code-preview">
@@ -49,13 +70,13 @@ base:
       </div>
     </section>
 
-    <section class="spec">
+    <section class="spec" id="spec">
       <div class="container">
         <h2>Specification <span class="version-tag">Draft 1.0</span></h2>
         <p class="spec-intro">
-          The <code>model.yaml</code> standard defines a structured way to specify AI models, their sources, configurations, and metadata. Feel free to contribute to this open standard as it evolves.
-          <br>
-          You can find a TypeScript definition of the specification in <a href="https://github.com/lmstudio-ai/lmstudio-js/blob/main/packages/lms-shared-types/src/VirtualModelDefinition.ts">lmstudio.js</a>.
+          The <code>model.yaml</code> format defines a structured way to specify AI models, their concrete sources, configurations, and metadata. Feel free to contribute to this open standard as it evolves.
+          <br><br>
+          You can find a TypeScript implementation of the specification in <a href="https://github.com/lmstudio-ai/lmstudio-js/blob/main/packages/lms-shared-types/src/VirtualModelDefinition.ts">lmstudio-js</a>.
         </p>
         
         <div class="spec-section">
@@ -64,7 +85,7 @@ base:
           <div class="spec-field">
             <h4><code>model</code> <span class="required">Required</span></h4>
             <p>The identifier for the model in the format <code>organization/name</code>. This determines where the model will be published and how it's referenced.</p>
-            <pre><code>model: meta/qwen3-8b</code></pre>
+            <pre><code>model: qwen/qwen3-8b</code></pre>
           </div>
           
           <div class="spec-field">
@@ -228,7 +249,7 @@ base:
       </div>
     </section>
 
-    <section class="examples">
+    <section class="examples" id="example">
       <div class="container">
         <h2>Complete Example</h2>
         <div class="example-code">
@@ -239,20 +260,20 @@ base:
       - type: huggingface
         user: lmstudio-community
         repo: Qwen-3-8B-GGUF
-    metadataOverrides:
-      domain: llm
-      architectures:
-        - llama
-      compatibilityTypes:
-        - gguf
-        - safetensors
-      paramsStrings:
-        - 1B
-      minMemoryUsageBytes: 1000000000
-      contextLengths:
-        - 131072
-      trainedForToolUse: mixed
-      vision: false
+metadataOverrides:
+  domain: llm
+  architectures:
+    - llama
+  compatibilityTypes:
+    - gguf
+    - safetensors
+  paramsStrings:
+    - 1B
+  minMemoryUsageBytes: 1000000000
+  contextLengths:
+    - 131072
+  trainedForToolUse: mixed
+  vision: false
 config:
   operation:
     fields:
@@ -275,36 +296,32 @@ suggestions:
   - message: The following parameters are recommended for thinking mode
     conditions:
       - type: equals
-      key: $.enableThinking
-      value: true
+        key: $.enableThinking
+        value: true
     fields:
       - key: llm.prediction.temperature
-      value: 0.6</code></pre>
+        value: 0.6</code></pre>
         </div>
       </div>
     </section>
 
-    <section class="benefits">
+    <section class="benefits" id="why">
       <div class="container">
         <h2>Why Use model.yaml?</h2>
         <div class="benefits-grid">
           <div class="benefit-card">
-            <div class="benefit-icon">🔄</div>
             <h3>Composability</h3>
             <p>Build model chains by referencing other models, creating a stack of configurations.</p>
           </div>
           <div class="benefit-card">
-            <div class="benefit-icon">🌐</div>
             <h3>Cross-Platform</h3>
             <p>Define once, run anywhere that supports the standard, regardless of hardware or software.</p>
           </div>
           <div class="benefit-card">
-            <div class="benefit-icon">⚙️</div>
             <h3>Preconfigured</h3>
             <p>Models come with optimal default settings built in, improving out-of-the-box performance.</p>
           </div>
           <div class="benefit-card">
-            <div class="benefit-icon">🧩</div>
             <h3>Adaptable</h3>
             <p>Custom fields enable dynamic behavior changes without modifying the core model.</p>
           </div>
